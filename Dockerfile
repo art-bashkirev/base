@@ -19,7 +19,7 @@ RUN apt update && \
         make build-essential libssl-dev zlib1g-dev \
         libbz2-dev libreadline-dev libsqlite3-dev \
         llvm wget unzip libncursesw5-dev xz-utils \
-        tk-dev libxml-dev libxmlsec1-dev libffi-dev \
+        tk-dev libxml2-dev libxmlsec1-dev libffi-dev \
         liblzma-dev
 
 COPY .python-version /.python-version
