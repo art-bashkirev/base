@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:stable-slim
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt update && \
