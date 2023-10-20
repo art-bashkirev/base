@@ -18,13 +18,8 @@ jobs:
           build-args: |
             VCS_REF=${{ github.sha }}
           load: true
+          push: true
           platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/base:amd64
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/base:latest, ${{ secrets.DOCKERHUB_USERNAME }}/base:${{ github.sha }}
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/base:amd64-buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/base:amd64-buildcache,mode=max
-
-      - name: Push linux/amd64 build to Docker Hub
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/base:amd64
-
