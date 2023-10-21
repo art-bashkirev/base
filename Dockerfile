@@ -15,12 +15,35 @@ ENV LANG=en_US.UTF-8
 
 ## Python Building Dependencies
 RUN apt update && \
+    apt upgrade --yes --no-install-recommends && \
     apt install --yes --no-install-recommends \
-        make build-essential libssl-dev zlib1g-dev \
-        libbz2-dev libreadline-dev libsqlite3-dev \
-        llvm wget unzip libncursesw5-dev xz-utils \
-        tk-dev libxml2-dev libxmlsec1-dev libffi-dev \
-        liblzma-dev
+    git \
+    xz-utils \
+    build-essential \
+    cmake \
+    clang \
+    lld \
+    pkg-config \
+    zlib1g-dev \
+    libncurses5-dev \
+    libsqlite3-dev \
+    gdb \
+    libgdbm-dev \
+    libgdbm-compat-dev \
+    libnss3-dev \
+    libssl-dev \
+    libreadline-dev \
+    libffi-dev \
+    libbz2-dev \
+    lzma \
+    liblzma-dev \
+    lzma-dev \
+    uuid-dev \
+    tk-dev \
+    xvfb \
+    lcov \
+    libclang-cpp-dev \
+    libclang-rt-dev
 
 COPY .python-version /.python-version
 
@@ -29,8 +52,7 @@ RUN cd /tmp && \
     tar xzf Python.tgz && \
     rm --force Python.tgz && \
     cd Python-* && \
-    ./configure \
-        --enable-optimizations && \
+    CC=clang CXX=clang++ LD=ld.lld ./configure && \
     make -j $(nproc) && \
     make install && \
     cd .. && \
@@ -42,13 +64,10 @@ RUN cd /tmp && \
 ## Installing essential dependencies 
 RUN apt update && \
     apt install --yes --no-install-recommends \
-        clang \
         coreutils \
         cowsay \
         dos2unix \
         dnsutils \
-        gdb \
-        git \
         git-lfs \
         jq \
         less \
