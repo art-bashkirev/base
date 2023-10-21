@@ -37,7 +37,7 @@ RUN cd /tmp && \
     rm --force --recursive Python-* && \
     ln --relative --symbolic /usr/local/bin/pip3 /usr/local/bin/pip && \
     ln --relative --symbolic /usr/local/bin/python3 /usr/local/bin/python && \
-    pip3 install --no-cache-dir --upgrade pip
+    pip3 install --no-cache-dir --upgrade pip setuptools
 
 ## Installing essential dependencies 
 RUN apt update && \
