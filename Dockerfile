@@ -95,6 +95,11 @@ RUN useradd --home-dir /home/codebase --shell /bin/bash codebase && \
     echo "Defaults umask=0022" >> /etc/sudoers && \
     sed --expression="s/^Defaults\tsecure_path=.*/Defaults\t!secure_path/" --in-place /etc/sudoers
 
+RUN apt update && \
+    apt upgrade --yes --no-install-recommends && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/*
+
 
 # Version the image (and any descendants)
 ARG VCS_REF
