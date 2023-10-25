@@ -26,6 +26,7 @@ RUN apt update && \
     cmake \
     clang \
     lld \
+    llvm \
     pkg-config \
     zlib1g-dev \
     libncurses5-dev \
@@ -55,7 +56,9 @@ RUN cd /tmp && \
     tar xzf Python.tgz && \
     rm --force Python.tgz && \
     cd Python-* && \
-    CC=clang CXX=clang++ LD=ld.lld ./configure && \
+    CC=clang CXX=clang++ LD=ld.lld ./configure \
+        --with-lto \
+        --enable-optimizations && \
     make -j $(nproc) && \
     make install && \
     cd .. && \
