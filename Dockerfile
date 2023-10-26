@@ -57,8 +57,9 @@ RUN cd /tmp && \
     rm --force Python.tgz && \
     cd Python-* && \
     CC=clang CXX=clang++ LD=ld.lld ./configure \
-        --with-lto \
-        --enable-optimizations && \
+        --with-lto=full \
+        --enable-optimizations \
+        --with-computed-gotos && \
     make -j $(nproc) && \
     make install && \
     cd .. && \
@@ -79,6 +80,7 @@ RUN apt update && \
         cowsay \
         dos2unix \
         dnsutils \
+        git \
         git-lfs \
         jq \
         less \
