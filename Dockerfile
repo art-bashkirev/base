@@ -12,7 +12,7 @@ RUN apt update && \
         en_US.UTF-8
 
 # Locale setup
-ENV LANG=en_US.UTF-8
+ENV LANG=C.UTF-8
 
 # Stage 2: Python Building Dependencies
 FROM base AS python-builder
@@ -98,15 +98,17 @@ RUN apt update && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN useradd --home-dir /home/codebase --shell /bin/bash codebase && \
+RUN useradd --home-dir /home/code --shell /bin/bash code && \
     umask 0077 && \
-    mkdir --parents /home/codebase && \
-    chown --recursive codebase:codebase /home/codebase && \
+    mkdir --parents /home/code && \
+    chown --recursive code:code /home/code && \
     echo "\n# Codespace" >> /etc/sudoers && \
-    echo "codebase ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+    echo "code ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
     echo "Defaults umask_override" >> /etc/sudoers && \
     echo "Defaults umask=0022" >> /etc/sudoers && \
-    sed --expression="s/^Defaults\tsecure_path=.*/Defaults\t!secure_path/" --in-place /etc/sudoers
+    sed \
+        --expression="s/^Defaults\tsecure_path=.*/Defaults\t!secure_path/" \
+        --in-place /etc/sudoers
 
 
 RUN apt update && \
@@ -121,10 +123,10 @@ RUN echo "$VCS_REF" > /etc/issue
 ONBUILD USER root
 ONBUILD ARG VCS_REF
 ONBUILD RUN echo "$VCS_REF" >> /etc/issue
-ONBUILD USER codebase
+ONBUILD USER code
 
 
 # Set user
-USER codebase
-WORKDIR /home/codebase
-ENV WORKDIR=/home/codebase
+USER code
+WORKDIR /home/code
+ENV WORKDIR=/home/code
