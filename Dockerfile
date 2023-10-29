@@ -12,7 +12,7 @@ RUN apt update && \
         en_US.UTF-8
 
 # Locale setup
-ENV LANG=en_US.UTF-8
+ENV LANG=C.UTF-8
 
 # Stage 2: Python Building Dependencies
 FROM base AS python-builder
