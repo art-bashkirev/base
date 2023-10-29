@@ -79,6 +79,8 @@ RUN apt update && \
         coreutils \
         cowsay \
         cmake \
+        curl \
+        unzip \
         build-essential \
         dos2unix \
         dnsutils \
