@@ -93,6 +93,7 @@ RUN apt update && \
         sudo \
         tzdata \
         valgrind \
+        wget \
         vim \
         zip && \
     apt clean && \
