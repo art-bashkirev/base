@@ -78,6 +78,8 @@ RUN apt update && \
     apt install --yes --no-install-recommends \
         coreutils \
         cowsay \
+        cmake \
+        build-essential \
         dos2unix \
         dnsutils \
         git \
